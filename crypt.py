@@ -1,11 +1,12 @@
-
 def hash(inpstr):
 
     codedstr = ''
-
-    for i in inpstr[:]:
+    for i in inpstr:
         if i.isalpha():
-            codedstr += 'a'*(ord(i)-96)+"_"
+            if i.islower():
+                codedstr += 'a'*(ord(i)-96)+"_"
+            elif i.isupper():
+                codedstr += 'A'*(ord(i)-64)+"_"
         elif i.isnumeric():
             codedstr += '1'*(ord(i)-47)+"_"
         else:
@@ -22,6 +23,8 @@ def unhash(hashed):
             decoded+= chr(47+len(i))
         elif(i[0]=='a'):
             decoded+= chr(96+len(i))
+        elif(i[0]=='A'):
+            decoded += chr(64+len(i))
         else:
             decoded += i[0]
     return decoded
@@ -29,7 +32,7 @@ def unhash(hashed):
 def main():
     passwd = input("Enter an alphanumeric password (no underscores please): \n")
     if("_" in passwd):
-        print("You naughty little devil")
+        print(unhash("AAAAAAAAAAAAAAAAAAAAAAAAA_aaaaaaaaaaaaaaa_aaaaaaaaaaaaaaaaaaaaa_ _aaaaaaaaaaaaaa_a_aaaaaaaaaaaaaaaaaaaaa_aaaaaaa_aaaaaaaa_aaaaaaaaaaaaaaaaaaaa_aaaaaaaaaaaaaaaaaaaaaaaaa_ _aaaaaaaaaaaa_aaaaaaaaa_aaaaaaaaaaaaaaaaaaaa_aaaaaaaaaaaaaaaaaaaa_aaaaaaaaaaaa_aaaaa_ _aaaa_aaaaa_aaaaaaaaaaaaaaaaaaaaaa_aaaaaaaaa_aaaaaaaaaaaa_"))
         main()
         return
     hashed = hash(passwd)
